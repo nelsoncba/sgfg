@@ -1,0 +1,25 @@
+<?php
+
+use yii\helpers\Html;
+
+
+/* @var $this yii\web\View */
+/* @var $model app\models\Pedido */
+
+?>
+<div class="pedido-create">
+<?php if (!Yii::$app->request->isAjax){ ?>
+    <?= $this->renderAjax('_form', [
+    	
+        'modelPedido' => $modelPedido,
+        'modelsDetalle' => $modelsDetalle,
+        'modelProducto' => $modelProducto
+    ]) ?>
+<?php }else{
+	echo $this->render('_form', [
+        'modelPedido' => $modelPedido,
+        'modelsDetalle' => $modelsDetalle,
+        'modelProducto' => $modelProducto
+         ]);
+	} ?>
+</div>
