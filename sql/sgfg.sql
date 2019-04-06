@@ -18,39 +18,6 @@ USE `sgfg`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `address`
---
-
-DROP TABLE IF EXISTS `address`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `address` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `full_name` varchar(128) DEFAULT NULL,
-  `address_line1` varchar(255) DEFAULT NULL,
-  `address_line2` varchar(255) DEFAULT NULL,
-  `city` varchar(64) DEFAULT NULL,
-  `state` varchar(45) DEFAULT NULL,
-  `country` varchar(45) DEFAULT NULL,
-  `postal_code` varchar(15) DEFAULT NULL,
-  `customer_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `customer_id_fk_idx` (`customer_id`),
-  CONSTRAINT `customer_id_fk` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `address`
---
-
-LOCK TABLES `address` WRITE;
-/*!40000 ALTER TABLE `address` DISABLE KEYS */;
-INSERT INTO `address` VALUES (1,'Nelson Zabala','Colon 5551','San Martin 221','Cordoba','Cordoba','Argentina','5000',1),(2,'nelson zabala','colon 324','san martin 234','cordoba','cordoba','argentina ','5000',2),(3,'juan perez','address 1','','cordoba','cordoba','argentina','5000',3),(4,'juan perez','address 2','','buenos aires','buenos aires','argentina','1400',3),(5,'','','','','','','',4);
-/*!40000 ALTER TABLE `address` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `almacen`
 --
 
@@ -224,55 +191,6 @@ LOCK TABLES `contacto_personal` WRITE;
 /*!40000 ALTER TABLE `contacto_personal` DISABLE KEYS */;
 INSERT INTO `contacto_personal` VALUES (3,'213423144','','mail@mail',3),(4,'354566788','','',18);
 /*!40000 ALTER TABLE `contacto_personal` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `country`
---
-
-DROP TABLE IF EXISTS `country`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `country` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `country_name` varchar(150) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `country`
---
-
-LOCK TABLES `country` WRITE;
-/*!40000 ALTER TABLE `country` DISABLE KEYS */;
-INSERT INTO `country` VALUES (1,'prueba1');
-/*!40000 ALTER TABLE `country` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `customer`
---
-
-DROP TABLE IF EXISTS `customer`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `customer` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(32) DEFAULT NULL,
-  `last_name` varchar(64) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `customer`
---
-
-LOCK TABLES `customer` WRITE;
-/*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (1,'Nelson','Zabala'),(2,'nelson','zabala'),(3,'juan','perez'),(4,'','');
-/*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -501,35 +419,6 @@ LOCK TABLES `pedido` WRITE;
 /*!40000 ALTER TABLE `pedido` DISABLE KEYS */;
 INSERT INTO `pedido` VALUES (2,'00000001','CERRADO','VENTA','2017-06-04',NULL,6),(5,'00000002','CERRADO','VENTA','2017-06-04',NULL,7),(7,'00000003','CERRADO','VENTA','2017-06-06',NULL,7),(11,'00000004','ANULADO','PEDIDO','2017-06-10',NULL,10),(12,'00000005','CERRADO','VENTA','2017-06-10',NULL,7),(22,'00000006','CERRADO','VENTA','2017-06-11',NULL,9),(31,'00000007','CERRADO','VENTA','2017-06-25',NULL,6),(32,'00000008','PENDIENTE','PEDIDO','2017-06-25',NULL,7),(33,'00000009','CERRADO','VENTA','2017-06-25',NULL,8),(35,'00000010','CERRADO','VENTA','2017-06-25',NULL,7),(36,'00000011','CERRADO','VENTA','2019-04-01',NULL,8);
 /*!40000 ALTER TABLE `pedido` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `person`
---
-
-DROP TABLE IF EXISTS `person`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `person` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(60) NOT NULL,
-  `last_name` varchar(60) DEFAULT NULL,
-  `country_id` int(11) DEFAULT NULL,
-  `parent_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `tbl_person_FK1` (`country_id`),
-  CONSTRAINT `tbl_person_FK1` FOREIGN KEY (`country_id`) REFERENCES `country` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `person`
---
-
-LOCK TABLES `person` WRITE;
-/*!40000 ALTER TABLE `person` DISABLE KEYS */;
-INSERT INTO `person` VALUES (2,'Juan','perez',NULL,2);
-/*!40000 ALTER TABLE `person` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

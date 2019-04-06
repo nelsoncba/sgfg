@@ -1,39 +1,46 @@
-dockerhost-web:
-  build: docker/
-  ports:
-    - 80:80
-  volumes:
-    - ./:/var/www
-  container_name: dockerhost_web
-  links:
-    - dockerhost-db:db
+version: '3'
 
-dockerhost-db:
-  container_name: dockerhost_mysql
-  image: mysql/mysql-server:5.5
-  #restart: always
-  # command: --innodb_use_native_aio=0
-  # command: --lower_case_table_names=1
-  ports:
-    - 3306:3306
-  volumes:
-    - ./docker/mysql/data:/var/lib/mysql/data
-    - ./sql/sgfg.sql:/docker-entrypoint-initdb.d/1-init.sql
-  environment:
-      MYSQL_ROOT_PASSWORD: 'root'
-      MYSQL_DATABASE: 'sgfg'
-      MYSQL_USER: 'root'
-      MYSQL_PASSWORD: 'root'
-    # MYSQL_ROOT_PASSWORD: 123456
-    # MYSQL_DATABASE: sgfg
+services:
+  dockerhost-web:
+    build: docker/
+    ports:
+      - 80:80
+    volumes:
+      - ./:/var/www
+    container_name: dockerhost_web
+    links:
+      - dockerhost-db:db
 
-dockerhost-pma:
-  image: phpmyadmin/phpmyadmin
-  ports:
-    - 32991:80
-  container_name: dockerhost_phpmyadmin
-  links:
-    - dockerhost-db:db
-  environment:
-    MYSQL_USERNAME: root
-    MYSQL_ROOT_PASSWORD: root
+  dockerhost-db:
+    container_name: dockerhost_mysql
+    image: mysql/mysql-server:5.5
+    #restart: always
+    # command: --innodb_use_native_aio=0
+    # command: --lower_case_table_names=1
+    ports:
+      - 3306:3306
+    volumes:
+        - mysqldata:/var/lib/mysql
+    #  - ./docker/mysql/data:/var/lib/mysql/data
+    #  - ./sql/sgfg.sql:/docker-entrypoint-initdb.d/1-init.sql
+    environment:
+        MYSQL_ROOT_PASSWORD: 'root'
+        MYSQL_DATABASE: 'sgfg'
+        MYSQL_USER: 'root'
+        MYSQL_PASSWORD: 'root'
+      # MYSQL_ROOT_PASSWORD: 123456
+      # MYSQL_DATABASE: sgfg
+
+  dockerhost-pma:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 32991:80
+    container_name: dockerhost_phpmyadmin
+    links:
+      - dockerhost-db:db
+    environment:
+      MYSQL_USERNAME: root
+      MYSQL_ROOT_PASSWORD: root
+volumes:
+  mysqldata:
+    driver: "local"
